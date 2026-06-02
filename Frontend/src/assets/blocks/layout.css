@@ -1,0 +1,21 @@
+.page__content {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.register__form label{
+    /* Field 1 */
+
+position: absolute;
+width: 358px;
+height: 27px;
+left: 461px;
+top: 258px;
+
+
+}

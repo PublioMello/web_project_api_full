@@ -1,0 +1,90 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  padding-top: 60px;
+  gap: 50px;
+}
+.login__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login__form input {
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  color: white;
+  padding: 8px 0;
+  margin-bottom: 30px;
+  width: 100%;
+  max-width: 358px;
+}
+.login__form input:focus {
+  outline: none;
+}
+
+.login__button {
+  /* Submit Button */
+  margin-top: 216px;
+  width: 100%;
+  max-width: 358px;
+  height: 50px;
+
+  background: #ffffff;
+  border-radius: 2px;
+  /* Entrar */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  /* idêntico à altura da caixa */
+  text-align: center;
+  cursor: pointer;
+  color: #000000;
+}
+.login__form p {
+  /* Ainda não é membro? Inscreva-se aqui! */
+
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  /* idêntico à altura da caixa */
+  text-align: center;
+
+  color: #ffffff;
+}
+.signup__link {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  /* idêntico à altura da caixa */
+  text-align: center;
+
+  color: #ffffff;
+  text-decoration: none;
+}
+
+@media screen and (max-width: 544px) {
+  .login {
+    padding: 40px 20px;
+    gap: 30px;
+  }
+
+  .login__form input {
+    width: 100%;
+    max-width: 100%;
+    font-size: 16px;
+  }
+
+  .login__button {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 100px;
+  }
+}
