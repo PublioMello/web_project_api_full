@@ -9,7 +9,7 @@ const Register = ({ handleRegister }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(email, password);
+
     handleRegister({ email, password });
   };
   return (

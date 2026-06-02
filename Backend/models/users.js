@@ -1,4 +1,5 @@
 const { default: mongoose } = require("mongoose");
+const { validate } = require("uuid");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -24,6 +25,19 @@ const userSchema = new mongoose.Schema({
       },
       message: "URL inválida para o avatar",
     },
+  },
+  email: {
+    type: String,
+    required: true,
+    unique: true,
+    validate: {
+      validator: validator.isEmail,
+      message: "Invalid email format",
+    },
+  },
+  password: {
+    type: String,
+    required: true,
   },
 });
 

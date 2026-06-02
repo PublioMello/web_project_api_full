@@ -41,9 +41,9 @@ const Header = () => {
         </div>
       ) : (
         text && (
-          <p to={path} className="header__link">
+          <Link to={path} className="header__link">
             {text}
-          </p>
+          </Link>
         )
       )}
     </header>

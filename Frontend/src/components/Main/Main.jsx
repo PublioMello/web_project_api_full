@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useMemo } from "react";
 import Popup from "./components/Popup/Popup";
 import EditProfile from "./components/Popup/components/NewCard/EditProfile";
 import NewCard from "./components/Popup/components/NewCard/NewCard";
@@ -43,16 +43,18 @@ function Main({ cards, onCardLike, onCardDelete, onAddPlaceSubmit }) {
     ),
   };
 
-  const editAvatarPopup = {
-    title: "Edit Avatar",
-    children: (
-      <EditAvatar
-        onUpdateAvatar={handleUpdateAvatar}
-        handleClosePopup={handleClosePopup}
-      />
-    ),
-  };
-
+  const editAvatarPopup = useMemo(
+    () => ({
+      title: "Edit Avatar",
+      children: (
+        <EditAvatar
+          onUpdateAvatar={handleUpdateAvatar}
+          handleClosePopup={handleClosePopup}
+        />
+      ),
+    }),
+    [handleUpdateAvatar, handleClosePopup],
+  );
   return (
     <main className="content">
       <section className="profile page__section">

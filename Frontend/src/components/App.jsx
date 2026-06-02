@@ -23,8 +23,15 @@ function App() {
   const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
-    api.getUserInfo().then(setCurrentUser);
-    api.getInitialCards().then(setCards);
+    api
+      .getUserInfo()
+      .then(setCurrentUser)
+      .catch((err) => console.error("Erro ao carregar usuário:", err));
+
+    api
+      .getInitialCards()
+      .then(setCards)
+      .catch((err) => console.error("Erro ao carregar cartões:", err));
   }, []);
 
   async function handleRegister({ email, password }) {
@@ -73,7 +80,7 @@ function App() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [navigate]);
 
   async function handleUpdateUser(data) {
     const newData = await api.editarDados(data);
@@ -118,7 +125,6 @@ function App() {
   async function handleAddPlaceSubmit(data) {
     try {
       const newCard = await api.addNewCard(data);
-      console.log(newCard);
 
       setCards((prevCards) => [
         {
