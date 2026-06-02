@@ -26,14 +26,31 @@ module.exports.createCard = (req, res) => {
 module.exports.deleteCard = (req, res) => {
   const { cardId } = req.params;
 
-  Card.findByIdAndRemove(cardId)
+  Card.findById(cardId)
     .then((card) => {
       if (!card) {
-        return res.status(404).send({ message: "Cartão não encontrado" });
+        return res.status(404).send({
+          message: "Cartão não encontrado",
+        });
       }
-      res.send({ message: "Cartão deletado" });
+
+      if (card.owner.toString() !== req.user._id) {
+        return res.status(403).send({
+          message: "Você não tem permissão para excluir este cartão",
+        });
+      }
+
+      return Card.findByIdAndDelete(cardId).then(() => {
+        res.send({
+          message: "Cartão deletado",
+        });
+      });
     })
-    .catch(() => res.status(500).send({ message: "Erro no servidor" }));
+    .catch(() => {
+      res.status(500).send({
+        message: "Erro no servidor",
+      });
+    });
 };
 
 // da like no card

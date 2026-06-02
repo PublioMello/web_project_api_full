@@ -2,17 +2,18 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 
+const { postUser, login } = require("./controllers/users");
+const auth = require("./middlewares/auth");
+
 const usersRoutes = require("./routes/users");
 const cardsRoutes = require("./routes/cards");
 app.use(express.json());
 
-//  middleware DEVE vir antes das rotas
-app.use((req, res, next) => {
-  req.user = {
-    _id: "69e6ae04c5607f361702b87c",
-  };
-  next();
-});
+//rotas sign and signup
+app.post("/signup", postUser);
+app.post("/signin", login);
+
+app.use(auth);
 
 // rotas principais
 app.use("/users", usersRoutes);

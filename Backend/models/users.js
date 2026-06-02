@@ -1,24 +1,26 @@
-const { default: mongoose } = require("mongoose");
-const { validate } = require("uuid");
+const mongoose = require("mongoose");
+const validator = require("validator");
 
 const userSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 30,
+    default: "Jacques Cousteau",
   },
+
   about: {
     type: String,
-    required: true,
     minlength: 2,
     maxlength: 30,
+    default: "Explorer",
   },
+
   avatar: {
     type: String,
-    required: true,
+    default: "https://pictures.s3.yandex.net/resources/avatar_1604080799.jpg",
     validate: {
-      validator: function (v) {
+      validator(v) {
         return /^https?:\/\/(www\.)?[a-zA-Z0-9._~:/?#[\]@!$&'()*+,;=%-]+#?$/.test(
           v,
         );
@@ -26,18 +28,21 @@ const userSchema = new mongoose.Schema({
       message: "URL inválida para o avatar",
     },
   },
+
   email: {
     type: String,
     required: true,
     unique: true,
     validate: {
       validator: validator.isEmail,
-      message: "Invalid email format",
+      message: "Formato de email inválido",
     },
   },
+
   password: {
     type: String,
     required: true,
+    select: false,
   },
 });
 
