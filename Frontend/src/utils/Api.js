@@ -13,10 +13,16 @@ class Api {
     if (res.ok) {
       return res.json();
     }
-    return Promise.reject(`Error: ${res.status}`);
+
+    return res.text().then((text) => {
+      console.error("Resposta recebida:", text);
+      return Promise.reject(`Error ${res.status}`);
+    });
   }
 
   getUserInfo() {
+    console.log("API URL:", `${this._baseUrl}/users/me`);
+
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._getHeaders(),
     }).then(this._checkResponse);

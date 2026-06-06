@@ -14,7 +14,7 @@ module.exports = (req, res, next) => {
   let payload;
 
   try {
-    payload = jwt.verify(token, "dev-secret");
+    payload = jwt.verify(token, "super-secret-key");
   } catch (err) {
     return res.status(401).send({
       message: "Autorização necessária",
