@@ -24,6 +24,7 @@ function App() {
   const [token, setToken] = useState(localStorage.getItem("jwt") || "");
 
   useEffect(() => {
+    if (!isLoggedIn) return;
     api
       .getUserInfo()
       .then(setCurrentUser)
@@ -78,7 +79,7 @@ function App() {
       .checkToken(jwt)
       .then((data) => {
         setIsLoggedIn(true);
-        setUserEmail(data.data.email);
+        setUserEmail(data.email);
         setToken(jwt);
         navigate("/");
       })

@@ -14,8 +14,6 @@ function Main({ cards, onCardLike, onCardDelete, onAddPlaceSubmit }) {
 
   const [popup, setPopup] = useState(null);
 
-  if (!currentUser) return null;
-
   function handleOpenPopup(popup) {
     setPopup(popup);
   }
@@ -55,6 +53,8 @@ function Main({ cards, onCardLike, onCardDelete, onAddPlaceSubmit }) {
     }),
     [handleUpdateAvatar, handleClosePopup],
   );
+
+  if (!currentUser) return null;
   return (
     <main className="content">
       <section className="profile page__section">

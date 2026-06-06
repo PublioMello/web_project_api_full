@@ -64,6 +64,6 @@ app.use(errorHandler);
 
 mongoose.connect("mongodb://localhost:27017/aroundb");
 
-app.listen(3000, () => {
-  console.log("Servidor rodando na porta 3000");
+app.listen(3001, () => {
+  console.log("Servidor rodando na porta 3001");
 });
