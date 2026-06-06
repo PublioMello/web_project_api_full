@@ -133,9 +133,13 @@ module.exports.login = (req, res, next) => {
           });
         }
 
-        const token = jwt.sign({ _id: user._id }, "super-secret-key", {
-          expiresIn: "7d",
-        });
+        const token = jwt.sign(
+          { _id: user._id },
+          process.env.NODE_ENV === "production"
+            ? process.env.JWT_SECRET
+            : "super-secret-key",
+          { expiresIn: "7d" },
+        );
 
         return res.send({ token });
       });
