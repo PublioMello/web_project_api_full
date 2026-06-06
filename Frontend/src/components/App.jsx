@@ -21,6 +21,7 @@ function App() {
   const [userEmail, setUserEmail] = useState("");
   const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [token, setToken] = useState(localStorage.getItem("jwt") || "");
 
   useEffect(() => {
     api
@@ -32,7 +33,7 @@ function App() {
       .getInitialCards()
       .then(setCards)
       .catch((err) => console.error("Erro ao carregar cartões:", err));
-  }, []);
+  }, [isLoggedIn]);
 
   async function handleRegister({ email, password }) {
     try {
@@ -54,6 +55,8 @@ function App() {
       if (data.token) {
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("email", email);
+
+        setToken(data.token);
         setIsLoggedIn(true);
         setUserEmail(email);
 
@@ -63,6 +66,7 @@ function App() {
       console.log(err);
     }
   }
+
   useEffect(() => {
     const jwt = localStorage.getItem("jwt");
 
@@ -75,6 +79,7 @@ function App() {
       .then((data) => {
         setIsLoggedIn(true);
         setUserEmail(data.data.email);
+        setToken(jwt);
         navigate("/");
       })
       .catch((err) => {
@@ -142,6 +147,17 @@ function App() {
       throw err;
     }
   }
+  function handleSignOut() {
+    localStorage.removeItem("jwt");
+    localStorage.removeItem("email");
+
+    setToken("");
+    setIsLoggedIn(false);
+    setUserEmail("");
+
+    navigate("/signin");
+  }
+
   function closeAllPopups() {
     setIsInfoTooltipOpen(false);
   }

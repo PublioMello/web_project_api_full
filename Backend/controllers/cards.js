@@ -4,11 +4,11 @@ const Card = require("../models/cards");
 module.exports.getCards = (req, res) => {
   Card.find({})
     .then((cards) => res.send(cards))
-    .catch(() => res.status(500).send({ message: "Erro no servidor" }));
+    .catch(next);
 };
 
 //Cria os cards
-module.exports.createCard = (req, res) => {
+module.exports.createCard = (req, res, next) => {
   const { name, link } = req.body;
 
   // console.log(req.user._id);
@@ -19,25 +19,34 @@ module.exports.createCard = (req, res) => {
     owner: req.user._id,
   })
     .then((card) => res.status(201).send(card))
-    .catch(() => res.status(400).send({ message: "Dados inválidos" }));
+    .catch((err) => {
+      if (err.name === "ValidationError") {
+        err.statusCode = 400;
+        err.message = "Dados inválidos";
+      }
+
+      next(err);
+    });
 };
 
 //deleta o card
-module.exports.deleteCard = (req, res) => {
+module.exports.deleteCard = (req, res, next) => {
   const { cardId } = req.params;
 
   Card.findById(cardId)
     .then((card) => {
       if (!card) {
-        return res.status(404).send({
-          message: "Cartão não encontrado",
-        });
+        const err = new Error("Cartão não encontrado");
+        err.statusCode = 404;
+        return next(err);
       }
 
       if (card.owner.toString() !== req.user._id) {
-        return res.status(403).send({
-          message: "Você não tem permissão para excluir este cartão",
-        });
+        const err = new Error(
+          "Você não tem permissão para excluir este cartão",
+        );
+        err.statusCode = 403;
+        return next(err);
       }
 
       return Card.findByIdAndDelete(cardId).then(() => {
@@ -46,15 +55,11 @@ module.exports.deleteCard = (req, res) => {
         });
       });
     })
-    .catch(() => {
-      res.status(500).send({
-        message: "Erro no servidor",
-      });
-    });
+    .catch(next);
 };
 
 // da like no card
-module.exports.likeCard = (req, res) => {
+module.exports.likeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $addToSet: { likes: req.user._id } },
@@ -64,14 +69,16 @@ module.exports.likeCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
-        return res.status(404).send({ message: "Cartão não encontrado" });
+        err.statusCode = 404;
+        err.message = "Cartão não encontrado";
       }
-      res.status(500).send({ message: "Erro no servidor" });
+
+      next(err);
     });
 };
 
 //unlike no card
-module.exports.dislikeCard = (req, res) => {
+module.exports.dislikeCard = (req, res, next) => {
   Card.findByIdAndUpdate(
     req.params.cardId,
     { $pull: { likes: req.user._id } },
@@ -81,8 +88,10 @@ module.exports.dislikeCard = (req, res) => {
     .then((card) => res.send(card))
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
-        return res.status(404).send({ message: "Cartão não encontrado" });
+        err.statusCode = 404;
+        err.message = "Cartão não encontrado";
       }
-      res.status(500).send({ message: "Erro no servidor" });
+
+      next(err);
     });
 };

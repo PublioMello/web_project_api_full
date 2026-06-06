@@ -3,14 +3,14 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 
 //  GET /users
-module.exports.getUsers = (req, res) => {
+module.exports.getUsers = (req, res, next) => {
   User.find({})
     .then((users) => res.send(users))
-    .catch(() => res.status(500).send({ message: "Erro no servidor" }));
+    .catch(next);
 };
 
 //  GET /users/:id
-module.exports.getUserById = (req, res) => {
+module.exports.getUserById = (req, res, next) => {
   const { userId } = req.params;
   User.findById(userId)
     .orFail(() => {
@@ -21,14 +21,14 @@ module.exports.getUserById = (req, res) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
-        return res.status(404).send({ message: "Usuário não encontrado" });
+        err.statusCode = 404;
       }
-      res.status(500).send({ message: "Erro no servidor" });
+      next(err);
     });
 };
 
 // Post /user (create)
-module.exports.postUser = (req, res) => {
+module.exports.postUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
 
   bcrypt
@@ -50,11 +50,11 @@ module.exports.postUser = (req, res) => {
     })
     .catch((err) => {
       if (err.name === "ValidationError") {
-        return res.status(400).send({
-          message: "Dados inválidos",
-        });
+        err.statusCode = 400;
+        err.message = "Dados inválidos";
       }
 
+      next(err);
       return res.status(500).send({
         message: "Erro no servidor",
       });
@@ -62,7 +62,7 @@ module.exports.postUser = (req, res) => {
 };
 
 // atualizar perfil
-module.exports.updateUser = (req, res) => {
+module.exports.updateUser = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(
@@ -74,14 +74,21 @@ module.exports.updateUser = (req, res) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
-        return res.status(404).send({ message: "Usuário não encontrado" });
+        err.statusCode = 404;
+        err.message = "Usuário não encontrado";
       }
-      res.status(400).send({ message: "Dados inválidos" });
+
+      if (err.name === "ValidationError") {
+        err.statusCode = 400;
+        err.message = "Dados inválidos";
+      }
+
+      next(err);
     });
 };
 
 // atualizar avatar
-module.exports.updateAvatar = (req, res) => {
+module.exports.updateAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(
@@ -93,23 +100,30 @@ module.exports.updateAvatar = (req, res) => {
     .then((user) => res.send(user))
     .catch((err) => {
       if (err.name === "DocumentNotFoundError") {
-        return res.status(404).send({ message: "Usuário não encontrado" });
+        err.statusCode = 404;
+        err.message = "Usuário não encontrado";
       }
-      res.status(400).send({ message: "URL inválida" });
+
+      if (err.name === "ValidationError") {
+        err.statusCode = 400;
+        err.message = "URL inválida";
+      }
+
+      next(err);
     });
 };
 
 // POST /signin
-module.exports.login = (req, res) => {
+module.exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   User.findOne({ email })
     .select("+password")
     .then((user) => {
       if (!user) {
-        return res.status(401).send({
-          message: "Email ou senha incorretos",
-        });
+        const err = new Error("Email ou senha incorretos");
+        err.statusCode = 401;
+        return next(err);
       }
 
       return bcrypt.compare(password, user.password).then((matched) => {
@@ -134,20 +148,16 @@ module.exports.login = (req, res) => {
 };
 
 //Get the current user
-module.exports.getCurrentUser = (req, res) => {
+module.exports.getCurrentUser = (req, res, next) => {
   User.findById(req.user._id)
     .then((user) => {
       if (!user) {
-        return res.status(404).send({
-          message: "Usuário não encontrado",
-        });
+        const err = new Error("Usuário não encontrado");
+        err.statusCode = 404;
+        return next(err);
       }
 
       return res.send(user);
     })
-    .catch(() => {
-      res.status(500).send({
-        message: "Erro no servidor",
-      });
-    });
+    .catch(next);
 };
