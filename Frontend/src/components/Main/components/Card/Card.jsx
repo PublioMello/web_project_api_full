@@ -1,5 +1,7 @@
 import ImagePopup from "./ImagePopup";
 import RemoveCard from "./RemoveCard";
+import { useContext } from "react";
+import CurrentUserContext from "../../../../contexts/CurrentUserContext";
 
 export default function Card({
   card,
@@ -8,8 +10,8 @@ export default function Card({
   onCardLike,
 }) {
   const { name, link, _id } = card;
-
-  const isLiked = card.isLiked;
+  const currentUser = useContext(CurrentUserContext);
+  const isLiked = card.likes.length > 0 ? true : false;
 
   const imageComponent = {
     children: <ImagePopup card={card} />,
@@ -35,6 +37,7 @@ export default function Card({
 
   function handleLikeClick() {
     onCardLike(card);
+    console.log(card);
   }
 
   return (

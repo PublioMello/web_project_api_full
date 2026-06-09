@@ -104,14 +104,21 @@ function App() {
 
   async function handleCardLike(card) {
     try {
-      const isLiked = card.isLiked;
-
-      const updatedCard = !isLiked
+      const updatedCard = !card.isLiked
         ? await api.addLike(card._id)
         : await api.removeLike(card._id);
 
+      console.log("Resposta da API:", updatedCard);
+
       setCards((prevCards) =>
-        prevCards.map((c) => (c._id === card._id ? updatedCard : c)),
+        prevCards.map((c) =>
+          c._id === card._id
+            ? {
+                ...updatedCard,
+                isLiked: !card.isLiked,
+              }
+            : c,
+        ),
       );
     } catch (err) {
       console.log(err);
