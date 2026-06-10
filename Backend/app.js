@@ -65,7 +65,10 @@ app.use(logErrors);
 app.use(errors());
 app.use(errorHandler);
 
-mongoose.connect(process.env.MONGO_URI);
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => console.log("Mongo conectado"))
+  .catch((err) => console.error("Erro Mongo:", err));
 
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
