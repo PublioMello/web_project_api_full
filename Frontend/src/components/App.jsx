@@ -101,7 +101,7 @@ function App() {
       console.log(err);
     }
   }
-
+  //teste
   async function handleCardLike(card) {
     try {
       const updatedCard = !card.isLiked
