@@ -87,7 +87,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "http://localhost:3001",
+  baseUrl: "https://web-project-api-full-xdhv.vercel.app",
 });
 
 export default api;
