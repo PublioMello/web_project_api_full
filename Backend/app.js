@@ -5,7 +5,7 @@ const cors = require("cors");
 const { celebrate, Joi, errors } = require("celebrate");
 const logRequests = require("./middlewares/requestLogger");
 const logErrors = require("./middlewares/errorLogger");
-
+const PORT = process.env.PORT || 3001;
 const { postUser, login } = require("./controllers/users");
 const auth = require("./middlewares/auth");
 const errorHandler = require("./middlewares/errorHandler");
@@ -65,8 +65,8 @@ app.use(logErrors);
 app.use(errors());
 app.use(errorHandler);
 
-mongoose.connect("mongodb://localhost:27017/aroundb");
+mongoose.connect(process.env.MONGO_URI);
 
-app.listen(3001, () => {
-  console.log("Servidor rodando na porta 3001");
+app.listen(PORT, () => {
+  console.log(`Servidor rodando na porta ${PORT}`);
 });
