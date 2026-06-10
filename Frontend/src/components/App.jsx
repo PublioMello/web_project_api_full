@@ -4,7 +4,7 @@ import CurrentUserContext from "../contexts/CurrentUserContext";
 import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import Main from "./Main/Main";
-import api from "../utils/api";
+import api from "../utils/apiteste";
 import Register from "./Register/Register";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./Layout/Layout";
