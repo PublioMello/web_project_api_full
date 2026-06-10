@@ -86,7 +86,7 @@ class api {
   }
 }
 
-const api = new api({
+const api = new Api({
   baseUrl: "http://localhost:3001",
 });
 
