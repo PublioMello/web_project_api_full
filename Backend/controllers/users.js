@@ -144,11 +144,7 @@ module.exports.login = (req, res, next) => {
         return res.send({ token });
       });
     })
-    .catch(() => {
-      res.status(500).send({
-        message: "Erro no servidor",
-      });
-    });
+    .catch(next);
 };
 
 //Get the current user

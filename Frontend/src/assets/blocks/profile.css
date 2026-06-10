@@ -24,6 +24,7 @@
   overflow: hidden;
   grid-area: title;
   margin: 0;
+  display: flex;
 }
 
 .profile__description {
@@ -57,7 +58,6 @@
   margin-left: auto;
 }
 
-
 .profile__edit-button {
   width: 24px;
   height: 24px;
@@ -71,8 +71,6 @@
   margin: 0;
 }
 
-
-
 .profile__avatar-button {
   border: none;
   padding: 0;
@@ -82,13 +80,12 @@
   display: flex;
 }
 
-
 .profile__avatar-button:hover {
   filter: brightness(0.4);
   cursor: pointer;
 }
 
-.profile__avatar-button:hover~.profile__info::before {
+.profile__avatar-button:hover ~ .profile__info::before {
   content: "";
   position: absolute;
   width: 26px;

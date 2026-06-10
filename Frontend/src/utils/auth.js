@@ -1,4 +1,4 @@
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = "web-project-api-full-gamma.vercel.app";
 
 //Register
 export const register = ({ email, password }) => {

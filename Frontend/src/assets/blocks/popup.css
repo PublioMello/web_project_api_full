@@ -35,15 +35,15 @@
 .popup__close {
   width: 35px;
   height: 35px;
-  background: transparent url("../images/close.svg") center no-repeat;
   background-size: 35px 35px;
   border: none;
   position: absolute;
-  top: -39px;
-  right: -37px;
+  /* top: -39px;
+  right: -37px; */
   padding: 0;
   margin: 0;
   cursor: pointer;
+  top: -9999px;
 }
 
 .popup__close:hover {
@@ -141,16 +141,14 @@
 }
 
 .popup__delete {
-
   width: 358px;
   height: 23px;
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 900;
   font-size: 24px;
   line-height: 29px;
   color: #000000;
-
 }
 
 .popup__content_type_delete {
@@ -169,8 +167,6 @@
 .profile {
   position: relative;
 }
-
-
 
 @media screen and (max-width: 544px) {
   .popup {

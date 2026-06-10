@@ -3,6 +3,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const { celebrate, Joi, errors } = require("celebrate");
+const logRequests = require("./middlewares/requestLogger");
+const logErrors = require("./middlewares/errorLogger");
 
 const { postUser, login } = require("./controllers/users");
 const auth = require("./middlewares/auth");
@@ -19,7 +21,7 @@ app.use(cors());
 // app.options("/*", cors());
 
 app.use(express.json());
-
+app.use(logRequests);
 // Signup
 app.post(
   "/signup",
@@ -59,7 +61,7 @@ app.use((req, res) => {
     message: "A solicitação não foi encontrada",
   });
 });
-
+app.use(logErrors);
 app.use(errors());
 app.use(errorHandler);
 
