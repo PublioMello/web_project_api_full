@@ -1,4 +1,4 @@
-class Api {
+class api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
   }
