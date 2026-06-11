@@ -70,6 +70,8 @@ mongoose
   .then(() => console.log("Mongo conectado"))
   .catch((err) => console.error("Erro Mongo:", err));
 
+module.exports = app;
+
 app.listen(PORT, () => {
   console.log(`Servidor rodando na porta ${PORT}`);
 });
