@@ -1,5 +1,5 @@
 # http://editorconfig.org
-f
+
 # Uma propriedade especial que deve ser especificada no topo do arquivo.
 # Quando definida como true, ela impede o Editorconfig de pesquisar qualquer valor superior
 # na árvore de diretórios para os arquivos .editorconfig.
