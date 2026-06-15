@@ -43,12 +43,14 @@ module.exports.postUser = (req, res, next) => {
       }),
     )
     .then((user) => {
+      console.log(user);
       const userResponse = user.toObject();
       delete userResponse.password;
 
       res.status(201).send(userResponse);
     })
     .catch((err) => {
+      console.log(err);
       if (err.name === "ValidationError") {
         err.statusCode = 400;
         err.message = "Dados inválidos";
