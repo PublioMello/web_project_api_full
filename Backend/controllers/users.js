@@ -30,7 +30,7 @@ module.exports.getUserById = (req, res, next) => {
 // Post /user (create)
 module.exports.postUser = (req, res, next) => {
   const { name, about, avatar, email, password } = req.body;
-  console.log(req.body);
+
   bcrypt
     .hash(password, 10)
     .then((hash) =>
@@ -43,14 +43,12 @@ module.exports.postUser = (req, res, next) => {
       }),
     )
     .then((user) => {
-      console.log(user);
       const userResponse = user.toObject();
       delete userResponse.password;
 
       res.status(201).send(userResponse);
     })
     .catch((err) => {
-      console.log(err);
       if (err.name === "ValidationError") {
         err.statusCode = 400;
         err.message = "Dados inválidos";
