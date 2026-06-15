@@ -17,8 +17,7 @@ const { validateURL } = require("./utils/validation");
 
 const app = express();
 
-app.use(cors());
-// app.options("/*", cors());
+app.use(cors({ origin: "https://web-project-api-full-gamma.vercel.app" }));
 
 app.use(express.json());
 app.use(logRequests);
