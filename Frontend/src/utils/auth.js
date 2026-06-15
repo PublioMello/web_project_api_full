@@ -29,13 +29,18 @@ export const authorize = ({ email, password }) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  }).then((res) => {
-    if (!res.ok) {
-      return Promise.reject(`Erro: ${res.status}`);
-    }
+  })
+    .then((res) => {
+      if (!res.ok) {
+        return Promise.reject(`Erro: ${res.status}`);
+      }
 
-    return res.json();
-  });
+      return res.json();
+    })
+    .then((data) => {
+      console.log("LOGIN RESPONSE:", data);
+      return data;
+    });
 };
 
 //Verify token

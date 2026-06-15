@@ -52,6 +52,7 @@ function App() {
   async function handleLogin({ email, password }) {
     try {
       const data = await auth.authorize({ email, password });
+      console.log("LOGIN DATA:", data);
 
       if (data.token) {
         localStorage.setItem("jwt", data.token);
