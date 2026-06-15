@@ -54,10 +54,7 @@ module.exports.postUser = (req, res, next) => {
         err.message = "Dados inválidos";
       }
 
-      next(err);
-      return res.status(500).send({
-        message: "Erro no servidor",
-      });
+      return next(err);
     });
 };
 
