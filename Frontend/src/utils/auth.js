@@ -1,4 +1,4 @@
-const BASE_URL = "https://web-project-api-full-xdhv.vercel.app";
+const BASE_URL = "https://web-project-api-full-8nf8.onrender.com";
 
 //Register
 export const register = ({ email, password }) => {

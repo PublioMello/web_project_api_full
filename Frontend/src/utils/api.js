@@ -87,7 +87,7 @@ class Api {
 }
 
 const api = new Api({
-  baseUrl: "https://web-project-api-full-xdhv.vercel.app",
+  baseUrl: "https://web-project-api-full-8nf8.onrender.com",
 });
 
 export default api;
