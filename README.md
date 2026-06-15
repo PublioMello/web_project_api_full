@@ -1,6 +1,6 @@
 # Tripleten web_project_api_full
 
-https://web-project-api-full-gamma.vercel.app/signin
+https://web-project-api-full-gamma.vercel.app
 
 # Web Project API Full
 
