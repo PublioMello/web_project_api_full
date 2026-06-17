@@ -11,6 +11,7 @@ export default function Card({
 }) {
   const { name, link, _id } = card;
   const currentUser = useContext(CurrentUserContext);
+  console.log(currentUser);
   const isLiked = card.likes.includes(currentUser._id);
 
   const imageComponent = {
@@ -34,12 +35,12 @@ export default function Card({
   const cardLikeButtonClassName = `card__like-button ${
     card.likes.includes(_id) ? "card__like-button_is-active" : ""
   }`;
-  console.log({
-    likes: card.likes,
-    currentUser: _id,
-    isLiked,
-    cardLikeButtonClassName,
-  });
+  // console.log({
+  //   likes: card.likes,
+  //   currentUser: _id,
+  //   isLiked,
+  //   cardLikeButtonClassName,
+  // });
 
   function handleLikeClick() {
     onCardLike(card);
