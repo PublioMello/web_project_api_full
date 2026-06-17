@@ -21,8 +21,6 @@ class Api {
   }
 
   getUserInfo() {
-    console.log("API URL:", `${this._baseUrl}/users/me`);
-
     return fetch(`${this._baseUrl}/users/me`, {
       headers: this._getHeaders(),
     }).then(this._checkResponse);

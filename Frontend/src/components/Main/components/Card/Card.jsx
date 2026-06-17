@@ -11,7 +11,7 @@ export default function Card({
 }) {
   const { name, link, _id } = card;
   const { currentUser } = useContext(CurrentUserContext);
-  console.log(currentUser._id);
+
   const isLiked = card.likes.includes(currentUser._id);
 
   const imageComponent = {
@@ -38,7 +38,6 @@ export default function Card({
 
   function handleLikeClick() {
     onCardLike(card);
-    console.log(card);
   }
 
   return (

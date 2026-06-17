@@ -2,8 +2,6 @@ const BASE_URL = "https://web-project-api-full-8nf8.onrender.com";
 
 //Register
 export const register = ({ email, password }) => {
-  console.log("REGISTER DATA:", email, password);
-
   return fetch(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
@@ -11,8 +9,6 @@ export const register = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password }),
   }).then((res) => {
-    console.log("STATUS:", res.status);
-
     if (!res.ok) {
       return Promise.reject(`Erro: ${res.status}`);
     }
@@ -38,7 +34,6 @@ export const authorize = ({ email, password }) => {
       return res.json();
     })
     .then((data) => {
-      console.log("LOGIN RESPONSE:", data);
       return data;
     });
 };

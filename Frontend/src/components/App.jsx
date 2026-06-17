@@ -52,7 +52,6 @@ function App() {
   async function handleLogin({ email, password }) {
     try {
       const data = await auth.authorize({ email, password });
-      console.log("LOGIN DATA:", data);
 
       if (data.token) {
         localStorage.setItem("jwt", data.token);
@@ -110,8 +109,6 @@ function App() {
       const updatedCard = isLiked
         ? await api.removeLike(card._id)
         : await api.addLike(card._id);
-
-      console.log("updatedCard", updatedCard);
 
       setCards((prevCards) =>
         prevCards.map((c) => (c._id === card._id ? updatedCard : c)),
