@@ -104,6 +104,8 @@ function App() {
   }
   //teste
   async function handleCardLike(card) {
+    console.log("isLiked:", card.isLiked);
+    console.log("likes:", card.likes);
     try {
       const updatedCard = !card.isLiked
         ? await api.addLike(card._id)
