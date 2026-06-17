@@ -10,7 +10,7 @@ export default function Card({
   onCardLike,
 }) {
   const { name, link, _id } = card;
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
   console.log(currentUser._id);
   const isLiked = card.likes.includes(currentUser._id);
 
