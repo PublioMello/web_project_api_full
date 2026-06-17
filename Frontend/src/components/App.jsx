@@ -104,12 +104,19 @@ function App() {
   }
   //teste
   async function handleCardLike(card) {
-    try {
-      const isLiked = card.likes.some((user) => user._id === currentUser._id);
+    console.log("currentUser", currentUser);
+    console.log("card.likes", card.likes);
 
+    const isLiked = card.likes.includes(currentUser._id);
+
+    console.log("isLiked", isLiked);
+
+    try {
       const updatedCard = isLiked
         ? await api.removeLike(card._id)
         : await api.addLike(card._id);
+
+      console.log("updatedCard", updatedCard);
 
       setCards((prevCards) =>
         prevCards.map((c) => (c._id === card._id ? updatedCard : c)),
