@@ -11,7 +11,7 @@ export default function Card({
 }) {
   const { name, link, _id } = card;
   const currentUser = useContext(CurrentUserContext);
-  const isLiked = card.likes.some((user) => user._id === currentUser._id);
+  const isLiked = card.likes.includes(currentUser._id);
 
   const imageComponent = {
     children: <ImagePopup card={card} />,

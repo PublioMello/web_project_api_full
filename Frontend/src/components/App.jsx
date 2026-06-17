@@ -140,15 +140,7 @@ function App() {
     try {
       const newCard = await api.addNewCard(data);
 
-      setCards((prevCards) => [
-        {
-          ...newCard,
-          isLiked:
-            newCard.likes?.some((user) => user._id === currentUser._id) ||
-            false,
-        },
-        ...prevCards,
-      ]);
+      setCards((prevCards) => [newCard, ...prevCards]);
 
       return newCard;
     } catch (err) {
