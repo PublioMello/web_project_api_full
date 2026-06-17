@@ -34,6 +34,12 @@ export default function Card({
   const cardLikeButtonClassName = `card__like-button ${
     card.likes.includes(currentUser._id) ? "card__like-button_is-active" : ""
   }`;
+  console.log({
+    likes: card.likes,
+    currentUser: currentUser._id,
+    isLiked,
+    cardLikeButtonClassName,
+  });
 
   function handleLikeClick() {
     onCardLike(card);

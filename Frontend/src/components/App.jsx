@@ -104,12 +104,7 @@ function App() {
   }
   //teste
   async function handleCardLike(card) {
-    console.log("currentUser", currentUser);
-    console.log("card.likes", card.likes);
-
     const isLiked = card.likes.includes(currentUser._id);
-
-    console.log("isLiked", isLiked);
 
     try {
       const updatedCard = isLiked
