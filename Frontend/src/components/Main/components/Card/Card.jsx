@@ -32,7 +32,7 @@ export default function Card({
   };
 
   const cardLikeButtonClassName = `card__like-button ${
-    isLiked ? "card__like-button_is-active" : ""
+    card.likes.includes(currentUser._id) ? "card__like-button_is-active" : ""
   }`;
 
   function handleLikeClick() {
